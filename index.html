@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUMIDA KENYA - ポートフォリオ</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fefefe; }
+    header, section, footer { padding: 20px; }
+    header { background: #333; color: #fff; text-align: center; }
+    nav ul { list-style: none; padding: 0; display: flex; justify-content: center; margin: 0; }
+    nav ul li { margin: 0 15px; }
+    nav ul li a { color: #fff; text-decoration: none; }
+    section { border-bottom: 1px solid #ccc; }
+    h2 { text-align: center; }
+
+    /* --- Work Experience スタイル改良 --- */
+    #works { padding: 40px 20px; }
+
+    .work-item {
+      background-color: #f9f9f9;
+      border-left: 8px solid #2a5d9f;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 900px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    }
+
+    .work-item:hover {
+      background-color: #f0f8ff;
+    }
+
+    .work-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2a5d9f;
+      margin-bottom: 10px;
+    }
+
+    .work-period, .work-role {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .work-desc {
+      margin-top: 10px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    /* --- Skillなど既存セクション保持 --- */
+    #skill {
+      padding: 8px 12px;
+      width: 93.5%;
+      margin: 0 auto;
+    }
+
+    .skill {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .skill div {
+      width: 45%;
+      margin: 5px 0;
+      padding: 6px;
+      border: 2px solid #333;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .expert-title {
+      color: #2a5d9f;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .highlight-skill {
+      background-color: #f0f8ff;
+      padding: 12px;
+      border-radius: 5px;
+    }
+    .contact { text-align: center; }
+
+    h2 {
+      border-bottom: 2px solid #1E3A8A;
+      padding-bottom: 5px;
+      font-size: 1.75em;
+    }
+
+    h3.portfolio-title {
+    display: inline-block;
+    padding: 12px 20px;
+    border: 2px solid #1E3A8A;
+    border-radius: 50px; /* 丸み＝〇 */
+    background-color: #ffffff;
+    color: #1E3A8A;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    }
+
+h3.portfolio-title:hover {
+  background-color: #f0f8ff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SUMIDA KENYA</h1>
+    <p>Microsoft Azureを活用したオンプレミス・クラウドインフラストラクチャの設計・構築・運用に携わる3年目SE</p>
+    <nav>
+      <ul>
+        <li><a href="#works">Work Experience</a></li>
+        <li><a href="#skill">Certifications</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="works">
+    <h2>Work Experience</h2>
+
+    <div class="work-item">
+      <div class="work-title">AzureクラウドID管理・自動化対応</div>
+      <span class="work-period">期間：2023/04～2025/03</span>
+      <span class="work-role">役割：保守・自動化構築</span>
+      <div class="work-desc">
+        グループ関連会社向けにオンプレミス（Windows Server/AD）およびクラウド（Azure/Entra ID）基盤のID・端末管理を担当。IntuneやDefenderを活用し、クライアント端末の保守運用にも従事。<br>
+        SharePointとPower Automateを活用したクラウド移行を通じ、ヘルプデスク業務の一部を自動化し業務効率化を実現。<br>OJTトレーナーとして2名の育成を通じ、チームマネジメントの基礎を習得。
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-title">クライアントPC更改対応におけるプロジェクトリーダー</div>
+      <span class="work-period">期間：2024/10～2025/03</span>
+      <span class="work-role">役割：プロジェクトリーダー（PL）</span>
+      <div class="work-desc">
+        8人月規模のPC更改プロジェクトにてPLを担当。<br>
+        Windows 11端末のキッティング、GPO、Intune、Defenderの構成をハイブリッド環境で設計・構築。
+        顧客要望を契約費用内で実現するにあたり、ライセンス条件や既存インフラなどの技術的制約を深く理解した上で、仕様の妥当性を見極め調整を行う重要性を強く認識。
+        技術とマネジメントの両立の難しさとやりがいを実感。
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-title">AIアバターを活用した営業支援システム開発</div>
+      <span class="work-period">期間：2025/04～2025/XX</span>
+      <span class="work-role">役割：開発・非機能構築</span>
+      <div class="work-desc">
+        数十億円規模の大規模アジャイル開発プロジェクトに開発メンバーとして参画。<br>
+        スケジュール管理や議事録自動生成、ナレッジをもとにAIによる提案内容を支援する営業支援アプリの開発の進行の中で、SLAを満たすための冗長化や自動スケール、
+        公開範囲の制御、環境変数やキーの管理など、インフラとの連携がアプリ設計に直結する場面を多く経験。
+        クラウド設計におけるインフラの重要性を学び、クラウドアーキテクトを目指す上での知見を獲得。
+      </div>
+    </div>
+
+  </section>
+
+  <section id="skill">
+    <h2>Certifications</h2>
+    <div class="skill">
+      <div class="certification-item">
+        <h3 class="expert-title">Expert【Az305】</h3>
+        <p>Az305 (Solutions Architect Expert)　資格取得：2024/03</p>
+        <p>Microsoft Azureインフラストラクチャ ソリューションに関する専門的な知識</p>
+      </div>
+  
+      <div class="certification-item">
+        <h3 class="expert-title">Expert【SC-100】</h3>
+        <p>SC-100 (Microsoft Cybersecurity Architect)　資格取得：2025/03</p>
+        <p>セキュリティ戦略とガバナンスに関する高度な設計力と知識</p>
+      </div>
+  
+      <div class="certification-item">
+        <h3>Associate【Az104】</h3>
+        <p>Az104 (Administrator Associate)　資格取得：2024/01</p>
+        <p>Azure環境の実装、管理、監視に関する専門的な知識</p>
+      </div>
+  
+      <div class="certification-item">
+        <h3>Associate【Az500】</h3>
+        <p>Az500 (Security Engineer Associate)　資格取得：2024/05</p>
+        <p>セキュリティ構成・運用における専門知識</p>
+      </div>
+  
+      <div class="certification-item">
+        <h3>AP【応用情報】</h3>
+        <p>資格取得：2024/12</p>
+        <p>情報処理技術全般に関する基礎〜中級レベルの知識</p>
+      </div>
+  
+      <div class="certification-item">
+        <h3>その他</h3>
+        <p>基本情報技術者試験、Az900 (Azure Fundamentals)</p>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    /* Certificationsセクションのスタイル */
+    .certification-item {
+      border: 2px solid #333;
+      margin: 10px 0;
+      padding: 15px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+  
+    .certification-item:hover {
+      background-color: #f0f8ff; /* 背景色変更 */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 影をつけて浮き立たせる */
+    }
+  
+    .expert-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2a5d9f;
+      text-decoration: underline;
+      margin-bottom: 8px;
+    }
+  
+    .certification-item h3 {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+  
+    .certification-item p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  
+    .certification-item p:first-of-type {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  .portfolio-button {
+  display: inline-block;
+  padding: 5px 20px;
+  background-color: #0078D4;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+  </style>
+  
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+  
+    <!-- ポートフォリオアイテム -->
+    <div class="portfolio-item">
+      <div class="portfolio-header">
+        <h3 class="portfolio-title">[Az305・Sc100] SaaS向けAPI基盤のクラウド設計と構築</h3>
+       <div class="portfolio-description">
+       <p>要件定義から設計ドキュメントまで一貫して対応し、クラウドアーキテクチャ設計スキルの習得を目的として、模擬シナリオに対するソリューション実施。<br>
+          Azure上におけるAPI認証基盤を設計し、認証・認可にはOAuth 2.0/OpenID Connectによるトークン認証を採用。<br>
+          WAFやKey Vaultを活用して、セキュリティ強化を意識することで、システム全体を通して、認証基盤の構築に必要な基礎的対応力を習得。
+      </p>
+      </div>
+     <div class="portfolio-image">
+     <img src="認証基盤.png" alt="認証基盤のアーキテクト図" width="700">
+     </div>
+      <p style="margin: 0% 0;"><a href="認証基盤.html" target="_blank" class="portfolio-button">詳細（ドキュメント）</a></p>
+    </div>
+  
+<div class="portfolio-item">
+  <div class="portfolio-header">
+    <br><br>
+    <h3 class="portfolio-title">[Az305] Azure上でのWebサイト基盤構築</h3>
+  </div>
+  <div class="portfolio-description">
+    <p>Azureを基盤とし、インフラ構築からフロントエンド、データベース連携までを含むホットペッパーグルメ風のWebサイトを構築。<br>
+       GitHub ActionsによるCI/CDパイプラインを導入し、App Service認証やプライベートエンドポイントを用いてセキュリティを強化。<br>
+       クラウドサービスの連携と構築の流れを一通り経験し、基礎的な設計・実装スキルを体系的に習得。
+    </p>
+  </div>
+  <div class="portfolio-image">
+    <img src="web図鑑アプリ.png" alt="webコンテンツのアーキテクト図" width="700">
+  </div>
+  <p style="margin: 0% 0;"><a href="webコンテンツ.html" target="_blank" class="portfolio-button">詳細（コンテンツ）</a></p>
+</div>
+    <!-- GitHub Portfolio リンク -->
+    <p class="portfolio-footer" style="text-align:center; margin-top: 30px;">
+    </p>
+  </section>
+  
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>お問い合わせは、SNSまたはメールにてご連絡ください。</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 SUMIDA KENYA</p>
+  </footer>
+
+</body>
+</html>
