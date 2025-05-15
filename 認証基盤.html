@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>システム設計書</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    h1, h2, h3 {
+      color: #1E3A8A;
+    }
+    h2 {
+      border-bottom: 2px solid #1E3A8A;
+      padding-bottom: 5px;
+    }
+    h3 {
+      margin-top: 20px;
+      color: #1D4ED8;
+    }
+    ul, ol {
+      margin-left: 20px;
+    }
+    .section {
+      margin: 20px;
+    }
+    .section p {
+      margin-bottom: 20px;
+    }
+    strong {
+      font-weight: bold;
+    }
+    .table-container {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .table-container th, .table-container td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .table-container th {
+      background-color: #f4f4f4;
+    }
+    .back-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #0078D4;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .back-button:hover {
+      background-color: #005a9e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 戻るボタン -->
+  <p>
+    <a href="ポートフォリオ修正版.html" class="back-button">ホームに戻る</a>
+  </p>
+
+  <h1>【SaaS向けAPI基盤のクラウド設計と構築】</h1>
+
+  <div class="section">
+    <h2>シナリオ</h2>
+    <p>
+      A社は医療業界向けに電子カルテシステム（EMR）を提供しており、複数の病院やクリニックに対して医療データの管理サービスを運用している。現在、外部連携におけるセキュリティ対策が不十分で、スケーラビリティや運用管理の効率化にも課題を抱えている。<br>
+      急なアクセス増加や障害対応に十分な体制が整っておらず、今後はセキュアなAPI基盤の導入と高可用性なインフラの構築により、セキュリティ強化、スケーラブルなシステム運用、運用効率化の実現を目指す。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>要件定義</h2>
+
+    <h3>I. 基本方針</h3>
+    <ul>
+      <li><strong>システム化方針:</strong> 医療業界向けSaaS事業者に対し、セキュア・スケーラブル・運用性の高いクラウド基盤を提供</li>
+      <li><strong>プロジェクトスコープ:</strong>
+        <ul>
+          <li>外部システムとの認証・認可を含むセキュアなAPIエンドポイントの構築</li>
+          <li>Azure App Service、VNet、Key Vault、WAF等を活用した安全かつスケーラブルなサービス基盤の整備</li>
+          <li>認証サービス（Azure AD B2C）による外部連携時のアクセス管理の統一</li>
+          <li>Azure SQL Databaseを用いたデータストアの構築と保護</li>
+          <li>Azure Monitor、Application Insightsによる運用監視体制の導入</li>
+          <li>Function Appを活用したイベントドリブン構成</li>
+          <li><strong>スコープ外:</strong> オンプレミス連携、SentinelによるSIEM構築、Hybrid Cloud構築</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Ⅱ. ソリューション基本方針</h3>
+    <ul>
+      <li><strong>セキュアAPI基盤の提供:</strong> 認証・認可基盤として Auth0 を導入し、OAuth 2.0／OpenID Connect に基づくトークン認証（JWT）を実装</li>
+      <li><strong>スケーラビリティと可用性の確保:</strong> Azure App Service によりWeb/APIアプリケーションをホストし、適切に自動スケーリング機能を活用</li>
+      <li><strong>セキュリティ強化のためのWAF導入:</strong> Azure WAF を適用し、SQLインジェクションやクロスサイトスクリプティング（XSS）等の脅威からアプリケーションを保護</li>
+      <li><strong>運用管理の効率化:</strong> Azure Monitor および Application Insights によるログ収集・分析・アラート設定</li>
+      <li><strong>機密情報管理:</strong> APIキーやデータベース接続文字列などの機密情報は Azure Key Vault によって一元的かつ安全に管理</li>
+    </ul>
+
+    <h3>Ⅲ. 機能要件</h3>
+    <ul>
+      <li><strong>ユーザー承認機能:</strong> Auth0を利用したOAuth 2.0およびOpenID Connect (OIDC) ベースの認証機能</li>
+      <li><strong>商取引サポート機能:</strong> JWT（JSON Web Token）を用いたトークンベース認証を実装</li>
+      <li><strong>スケーラビリティ対応のAPI基盤:</strong> Azure App Serviceを使用して、APIのホスティングとスケーリングを管理</li>
+      <li><strong>セキュリティ強化のためのWebアプリケーションファイアウォール (WAF):</strong> Azure WAFを導入し、WebアプリケーションおよびAPIをSQLインジェクションやクロスサイトスクリプティング (XSS) 攻撃から保護</li>
+      <li><strong>機密情報の管理:</strong> Azure Key Vaultを活用し、APIキーやデータベース接続文字列などの機密情報を安全に管理</li>
+      <li><strong>運用監視機能:</strong> Azure MonitorおよびApplication Insightsを使用して、サービスの稼働状況やパフォーマンス、エラー、アラートなどの監視を実施</li>
+    </ul>
+
+    <h3>Ⅳ. 非機能要件</h3>
+    <ul>
+      <li><strong>可用性要件:</strong> システムは高可用性を提供し、重要なサービスのダウンタイムを最小限に抑える設計</li>
+      <li><strong>セキュリティ要件:</strong>
+        <ul>
+          <li>システムへのアクセスは、Auth0を使用したOAuth 2.0およびOpenID Connectを基盤とする認証機能で保護</li>
+          <li>すべての機密情報（APIキー、接続文字列など）は、Azure Key Vaultを使用して管理</li>
+          <li>Azure WAF（Web Application Firewall）を導入し、SQLインジェクションやXSSなどのWeb攻撃からAPIを保護</li>
+        </ul>
+      </li>
+      <li><strong>運用管理要件:</strong> Azure MonitorとApplication Insightsを使用してシステム全体の監視を行い、問題が発生した際に迅速な対応を可能にするアラート機能</li>
+    </ul>
+
+    <h3>Ⅴ. 制約条件・前提条件</h3>
+    <ul>
+      <li><strong>クラウド環境の使用:</strong> 本システムは、Microsoft Azureクラウドプラットフォーム上で構築され、他のクラウドサービスやオンプレミス環境との連携は行わない</li>
+      <li><strong>バックアップおよび復旧要件:</strong> 本プロジェクトでは、バックアップおよびデータ復旧についての要件は定義せず、これらは対象外とする</li>
+      <li><strong>システム拡張性と運用監視:</strong> システムは将来的な拡張に備えたスケーラブルなアーキテクチャで設計され、Azure MonitorおよびApplication Insightsによって運用監視を実施</li>
+    </ul>
+
+    <h3>VI. インターフェース要件</h3>
+    <ul>
+      <li><strong>APIインターフェース:</strong> RESTful APIを使用し、外部システムとの認証・データ連携を行う</li>
+      <li><strong>認証基盤（Auth0）との連携:</strong> Auth0を利用し、OAuth 2.0およびOpenID Connect（OIDC）による安全なユーザー認証を提供</li>
+      <li><strong>データベースインターフェース:</strong> Azure SQL Databaseがデータストアとして使用され、データアクセスはSQLクエリを通じて行う</li>
+    </ul>
+
+    <h3>VII. データ要件</h3>
+    <ul>
+      <li><strong>データの種類と格納場所:</strong> 医療データ（患者情報、診断内容など）および認証情報であり、すべてAzure SQL Databaseに格納されます</li>
+      <li><strong>データアクセス制御:</strong> 最小権限の原則に基づいて制御され、Azure Key Vaultを利用した機密情報管理が実施されます</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>外部設計</h2>
+
+    <h3>I. システム概要</h3>
+    <ul>
+      <li><strong>システムの目的:</strong> 本システムは、セキュアかつスケーラブルなAPI基盤をAzure上に構築することを目的とする。これにより、外部システムとの安全なデータ連携や拡張性の高いサービス提供を実現する。</li>
+      <li><strong>システムの主要構成要素:</strong></li>
+    </ul>
+    <table class="table-container">
+      <thead>
+        <tr>
+          <th>サービス（リソース）</th>
+          <th>概要</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Azure App Service</td>
+          <td>JWTベースの認証付きAPIをホストし、Open AI(Swagger UI)に対応したドキュメント提供</td>
+        </tr>
+        <tr>
+          <td>Azure SQL Database</td>
+          <td>医療データやログ等の永続データを保管する関係データベース</td>
+        </tr>
+        <tr>
+          <td>Azure Key Vault</td>
+          <td>シークレット（APIキー・接続文字列）の安全な保管および管理を担う</td>
+        </tr>
+        <tr>
+          <td>Web/SPAフロントエンド</td>
+          <td>HTML/JavaScript/Swagger UIによるフロントエンド。APIインターフェースを提供</td>
+        </tr>
+        <tr>
+          <td>Azure WAF</td>
+          <td>外部からの攻撃（XSS、SQLインジェクション等）を防御</td>
+        </tr>
+        <tr>
+          <td>Entra ID</td>
+          <td>OAuth2.0/OIDCによる認証</td>
+        </tr>
+        <tr>
+          <td>Azure Monitor</td>
+          <td>システム監視とログ分析により、運用効率化の向上とトラブルシューティングを支援</td>
+        </tr>
+        <tr>
+          <td>Azure App Insights</td>
+          <td>システム監視とログ分析により、運用効率化の向上とトラブルシューティングを支援</td>
+        </tr>
+      </tbody>
+    </table>
+
+<h3>Ⅱ. システム構成</h3>
+<div class="section">
+    <img src="認証基盤.png" alt="認証基盤" style="max-width: 75%; height: auto;"/>
+</div>
+
+<h3>Ⅲ. ユースケース図</h3>
+<div class="section">
+    <img src="ユースケース図.png" alt="ユースケース図" style="max-width: 85%; height: auto;"/>
+</div>
+
+<h3>Ⅳ. シーケンス図</h3>
+<div class="section">
+    <img src="シーケンス図.png" alt="シーケンス図" style="max-width: 85%; height: auto;"/>
+</div>
+
+<h3>Ⅴ. インターフェース設計</h3>
+<div class="section">
+    <li><strong>外部システムとのインターフェース:</li>
+    <p>RESTful API通信：webアプリケーションと外部決済システム、通信システムとの通信は、HTTPSを用いて行う。またデータのやり取りにはJSON形式を使用する。</p>
+
+    <li><strong>内部システム間のインターフェース:</li>
+    <p>WebアプリケーションDB：App ServiceとAzure SQL DBに接続し、顧客情報や商取引データを操作する。<br>
+       WebアプリケーションとSentinel：システムのセキュリティイベント、アラートをSentinelに送信し、リアルタイムで監視する。</p>
+</div>
+
+<h3>Ⅵ. データベース設計</h3>
+<div class="section">
+    <li><strong>データベース設計の概要:</li>
+    <p>使用するデータベース：Azure SQL DB<br>
+       保存するデータ：顧客情報（名前、住所、電話番号、メールアドレス）、商取引データ（取引履歴、注文情報、支払い履歴など）</p>
+
+    <li><strong>テーブル設計:</li>
+    <p>顧客情報テーブル：注文ID、名前、連絡先情報、住所など<br>
+       商取引テーブル：注文ID、顧客ID、注文日、金額など</p>
+</div>
+
+<h3>Ⅶ. セキュリティ設計</h3>
+<div class="section">
+    <li><strong>ユーザー認証:</li>
+    <p>Azure AD B2Cを使用し、エンドユーザー認証を実施します。多要素認証（MFA）を有効化し、条件付きアクセスを設定する。</p>
+
+    <h3>・データ暗号化</h3>
+    <p>データベース暗号化：Azure SQL DB内の顧客情報や商取引データは、保存時に自動的に暗号化される。<br>
+       通信の暗号化：アプリケーションとクライアント間、及びアプリケーションとAzure SQL Database間の通信はTLS/SSLによって暗号化される。</p>
+
+    <li><strong>ログの監視とセキュリティイベント管理:</li>
+    <p>Sentinelを利用し、セキュリティイベントやアラートをリアルタイムで収集し、監視する。必要に応じてアラート通知を行う。</p>
+</div>
+
+<h3>Ⅷ. コスト最適化設計</h3>
+<div class="section">
+    <li><strong>リソースのスケーリング:</li>
+    <p>Azure App ServiceやAzure SQL DBには自動スケーリング機能を設定し、リソースの過剰使用や不足がないよう、トラフィックに応じてスケーリングする。</p>
+
+    <li><strong>料金プラン選定:</li>
+    <p>予約インスタンスやスポットインスタンスを活用することでコスト最適化とCost Managementによる予算超過のリスク管理を行う。</p>
+</div>
+
+<h3>Ⅸ. 運用設計</h3>
+<div class="section">
+    <li><strong>運用設計:</li>
+    <p>Sentinelを活用し、システム全体のパフォーマンスやセキュリティ状態を監視する。システム障害や異常を検出した場合はアラートを発信することで迅速な対応を行う。</p>
+
+    <li><strong>バックアップとリカバリ:</li>
+    <p>需要データを定期的なバックアップと災害復旧計画を策定し、システムダウン時に迅速に普及できるようにする。</p>
+</div>
+
+<h3>Ⅹ. テスト設計</h3>
+<div class="section">
+    <li><strong>機能テスト:</li>
+    <p>UT、ITを実施する。特に認証機能、データベース操作、セキュリティイベントの検出について重点的にテストを行う。</p>
+
+    <li><strong>パフォーマンステスト:</li>
+    <p>負荷テストを実施し、アプリケーションが高トラフィック時でも安定して動作することを確認する。</p>
+</div>
+
+<h2>Ⅺ. 内部設計</h2>
+<div class="section">
+  <h3>1. リソースの選定と構成</h3>
+
+  <h4>[Azure App Service]：Webアプリケーションのホスティング</h4>
+  <ul>
+    <li>サービスプラン：Standard S1</li>
+    <li>サイズ：1CPU / 1.75GBメモリ</li>
+    <li>リージョン：東日本（East Japan）</li>
+    <li>スケーリング：最小スケールイン 1 / 最大スケールアウト 3</li>
+    <li>パフォーマンスメトリクス：Azure Monitor による監視</li>
+    <li>アラート：CPU使用率が90%を超えた場合にアラート</li>
+    <li>ログ保持期間：20日間</li>
+  </ul>
+
+  <h4>[Azure SQL Database]：顧客情報および商取引データの保持</h4>
+  <ul>
+    <li>サービスプラン：Standard S3</li>
+    <li>パフォーマンス：50 DTU</li>
+    <li>バックアップ：自動 5日間</li>
+    <li>リージョン：東日本（East Japan）</li>
+    <li>冗長化：ローカル冗長</li>
+    <li>セキュリティ：透過的データ暗号化（TDE）有効化</li>
+    <li>アラート：30秒以上の接続待機や300秒以上のクエリ実行でアラート</li>
+  </ul>
+
+  <h4>[Azure Function]：イベント駆動のサーバーレス実行環境</h4>
+  <ul>
+    <li>サービスプラン：Consumption Plan</li>
+    <li>自動スケール：リクエストに応じて自動対応</li>
+    <li>リージョン：東日本（East Japan）</li>
+    <li>トリガー：HTTPトリガー</li>
+    <li>アラート：5件/分の実行失敗でアラート通知</li>
+    <li>ログ保持：Application Insights経由で20日間</li>
+  </ul>
+
+  <h4>[Azure Key Vault]：機密情報（APIキー、パスワード）の管理</h4>
+  <ul>
+    <li>アクセスポリシー：必要最小限のアクセス権を設定</li>
+    <li>ローテーションポリシー：シークレットの定期的なローテーションを構成</li>
+  </ul>
+
+  <h4>[Entra ID]：ユーザー認証</h4>
+  <ul>
+    <li>承認フロー：Authorization Code Flow</li>
+    <li>認証方式：OAuth2.0 / OpenID Connect</li>
+    <li>対象アプリケーション：Azure App Service</li>
+    <li>カスタムポリシー：特定条件に応じた認証制御</li>
+  </ul>
+
+  <h4>[Azure WAF]：Webアプリケーション保護</h4>
+  <ul>
+    <li>SKU：Standard_v2</li>
+    <li>スケーリング：最小 1 / 最大 2</li>
+    <li>リージョン：東日本（East Japan）</li>
+    <li>アラート設定：攻撃検知件数が10件/分を超えた場合に通知</li>
+    <li>ログ保持期限：20日間</li>
+    <li>HTTPS：TLS証明書バインド（自己署名証明書）</li>
+  </ul>
+
+  <h4>[Azure Monitor]：プラットフォーム全体の監視とアラート管理</h4>
+  <ul>
+    <li>収集データ：CPU使用率、メモリ、HTTPエラー、応答時間、呼び出し数等</li>
+    <li>通知先：XXX@メール（適宜変更）</li>
+    <li>備考：Log Analyticsワークスペースは使用しない</li>
+  </ul>
+
+  <h4>[Application Insights]：アプリケーション監視とログ可視化</h4>
+  <ul>
+    <li>対象アプリ：Azure App Service、Azure Function</li>
+    <li>収集内容：リクエスト数、応答時間、失敗率、例外、依存サービスの呼び出し、カスタムイベント</li>
+    <li>保持期間・アラート連携：異常検出時にAzure Monitor経由で通知可能</li>
+  </ul>
+</div>
+</div>
+
+  <!-- 戻るボタン -->
+  <p>
+    <a href="ポートフォリオ修正版.html" class="back-button">ホームに戻る</a>
+  </p>
+
+</body>
+</html>
