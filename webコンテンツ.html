@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>プロジェクト詳細 - Azure上でのWebサイト基盤構築</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      margin: 40px;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: left;
+    }
+
+    h1 {
+      color: #1E3A8A;
+      border-left: 6px solid #1E3A8A;
+      padding-left: 12px;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #1E3A8A;
+      font-size: 1.3em;
+      border-bottom: 2px solid #1E3A8A;
+      padding-bottom: 5px;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    p.description {
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #0078D4;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #005a9e;
+    }
+
+    .image-block {
+      text-align: left;
+      margin: 10px 0 20px;
+    }
+
+    .image-block img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="content">
+
+    <!-- 上部戻るボタン -->
+    <p>
+      <a href="ポートフォリオ修正版.html" class="back-button">ホームに戻る</a>
+    </p>
+
+    <h1>【Azure上でのWebサイト基盤構築】</h1>
+
+    <h2>目的</h2>
+    <p>システム全体のアーキテクト構成の検討に加え、GitHub ActionsによるCI/CDパイプラインを導入。<br>
+       UIを考慮したフロントエンドを作成し、インフラ構築を含む静的Webコンテンツ実装まで一貫して実施可能なスキルを習得。
+    </p>
+
+    <h2>① トップページ</h2>
+    <p class="description">
+      ホットペッパー風のWebページを模倣したトップ画面。<br>
+      <strong>赤枠の店舗アイコン</strong>をクリックすると該当店舗の詳細ページへ遷移。<br>
+      <strong>青枠のアイコン</strong>はデータが存在しない場合で、クリック時にエラーページを表示。
+    </p>
+    <div class="image-block">
+      <img src="webコンテンツ_1.png" alt="トップページの画像">
+    </div>
+
+    <h2>② 詳細情報ページ</h2>
+    <p class="description">
+      店舗の詳細情報が表示され、<strong>予約ボタンからホットペッパー等の外部予約サイト</strong>にリンク。
+    </p>
+    <div class="image-block">
+      <img src="webコンテンツ_2.png" alt="店舗詳細ページ">
+    </div>
+
+    <h2>③ 店舗情報がない場合のエラー表示</h2>
+    <p class="description">
+      該当する店舗データが存在しない場合、<strong>「情報が見つかりません」ページ</strong>を表示。
+    </p>
+    <div class="image-block">
+      <img src="webコンテンツ_3.png" alt="エラーページの表示">
+    </div>
+
+    <h2>④ 検索機能</h2>
+    <p class="description">
+      ユーザー入力に応じて <strong>Azure Function を用いたAPI連携</strong>により店舗情報を検索・取得。
+    </p>
+    <div class="image-block">
+      <img src="webコンテンツ_4.png" alt="検索機能とAPI連携の図">
+    </div>
+
+    <!-- 下部戻るボタン -->
+    <p>
+      <a href="ポートフォリオ修正版.html" class="back-button">ホームに戻る</a>
+    </p>
+
+    <footer>
+      <p>&copy; 2025 SUMIDA KENYA</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
